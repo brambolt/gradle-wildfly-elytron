@@ -1,0 +1,66 @@
+/*
+ * Copyright 2017-2020 Brambolt ehf.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+  id 'com.brambolt.gradle.build.plugin' apply false
+  id 'com.brambolt.gradle.testkit' apply false
+}
+
+description = 'Wildfly Elytron convenience plugin.'
+group = 'com.brambolt.gradle'
+
+ext {
+  artifactClassifier = wildflyElytronToolVersion
+  artifactId = 'brambolt-gradle-wildfly-elytron'
+  developers = [[
+    email: 'stefan.sigurdsson@brambolt.com',
+    id: 'stefan.sigurdsson@brambolt.com',
+    name: 'Stefán Sigurðsson'
+  ]]
+  inceptionYear = '2020'
+  isGitHosted = true
+  isOpenSource = true // Enables publishing to plugins.gradle.org and Bintray
+  licenses = [[
+    id: 'Apache-2.0',
+    name: 'The Apache Software License, Version 2.0',
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+  ]]
+  pluginClass = 'com.brambolt.gradle.ElytronPlugin'
+  pluginDisplayName = 'Brambolt Elytron plugin'
+  pluginId = 'com.brambolt.gradle.wildfly.elytron'
+  pluginTags = ['wildfly', 'elytron', 'credentials']
+  pluginWebsite = 'https://github.com/brambolt/gradle-wildfly-elytron'
+  release = bramboltRelease
+  vcsUrl = 'https://github.com/brambolt/gradle-wildfly-elytron'
+}
+
+apply plugin: 'com.brambolt.gradle.build.plugin'
+apply plugin: 'com.brambolt.gradle.testkit'
+
+dependencies {
+  implementation "com.brambolt.wildfly:brambolt-rt-wildfly-elytron:${version}:${artifactClassifier}"
+  implementation 'org.wildfly.security:wildfly-elytron-tool:1.4.0.Final'
+  testImplementation "com.brambolt.gradle:brambolt-gradle-testkit:${version}"
+}
+
+test {
+  testLogging {
+    outputs.upToDateWhen { false }
+    showStandardStreams = true
+  }
+}
+
+test.finalizedBy(':samples:runAll')

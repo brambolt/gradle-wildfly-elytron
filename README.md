@@ -1,0 +1,2 @@
+
+Wildfly Elytron convenience plugin.

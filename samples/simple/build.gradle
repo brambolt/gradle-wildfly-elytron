@@ -1,0 +1,60 @@
+
+plugins {
+  id 'application'
+  id 'com.brambolt.gradle.wildfly.elytron'
+}
+
+import com.brambolt.gradle.wildfly.security.tasks.AddAlias
+import com.brambolt.gradle.wildfly.security.tasks.CreateCredentialStore
+import com.brambolt.gradle.wildfly.security.tasks.RetrieveClearPassword
+
+task setup {
+  doFirst {
+    project.buildDir.mkdirs()
+  }
+}
+
+task createCredentialStore(type: CreateCredentialStore, dependsOn: setup) {
+  location = new File(project.projectDir, 'elly.store')
+  password = 'elly'
+  doFirst {
+    if (location.exists()) {
+      logger.info("Deleting existing file: ${location}")
+      location.delete()
+    }
+    logger.info("Creating credential store: ${location}")
+  }
+}
+
+task addAliasWithClearPassword(type: AddAlias, dependsOn: createCredentialStore) {
+  location = new File(project.projectDir, 'elly.store')
+  password = 'elly'
+  alias = 'elly.alias.clear'
+  secret = 'elly.clear.secret'
+  mask = false
+  doFirst {
+    logger.info("Adding alias ${alias}: ${location}")
+  }
+}
+
+task addAliasWithMaskedPassword(type: AddAlias, dependsOn: createCredentialStore) {
+  location = new File(project.projectDir, 'elly.store')
+  password = 'elly'
+  alias = 'elly.alias.masked'
+  secret = 'elly.masked.secret'
+  doFirst {
+    logger.info("Adding alias ${alias}: ${location}")
+  }
+}
+
+task retrieveClearPassword(type: RetrieveClearPassword, dependsOn: addAliasWithClearPassword) {
+  location = new File(project.projectDir, 'elly.store')
+  password = 'elly'
+  alias = 'elly.alias.clear'
+  doFirst {
+    logger.info("Retrieving secret...")
+  }
+  doLast {
+    logger.info("Retrieved not-so-secret cleartext password: ${secret}")
+  }
+}

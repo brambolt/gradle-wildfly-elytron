@@ -1,0 +1,13 @@
+
+pluginManagement {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+  plugins {
+    id 'com.brambolt.gradle.wildfly.elytron' version bramboltVersion
+  }
+}
+
+rootProject.name = 'gradle-wildfly-elytron-simple-sample'
+

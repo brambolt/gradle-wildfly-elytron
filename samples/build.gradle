@@ -1,0 +1,9 @@
+
+task runSimple(type: Exec) {
+  workingDir = new File(project.projectDir, 'simple')
+  commandLine(['./gradlew', 'retrieveClearPassword', '--no-daemon', "-PbramboltVersion=${bramboltVersion}"])
+}
+
+task runAll {
+  dependsOn(runSimple)
+}
