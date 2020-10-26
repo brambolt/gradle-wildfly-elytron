@@ -28,6 +28,6 @@ pluginManagement {
   }
 }
 
-rootProject.name = 'gradle-wildfly-elytron'
+rootProject.name = 'brambolt-gradle-wildfly-elytron'
 
 include 'samples'

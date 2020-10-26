@@ -9,5 +9,5 @@ pluginManagement {
   }
 }
 
-rootProject.name = 'gradle-wildfly-elytron-simple-sample'
+rootProject.name = 'brambolt-gradle-wildfly-elytron-simple-sample'
 
