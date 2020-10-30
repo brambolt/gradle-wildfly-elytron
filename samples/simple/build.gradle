@@ -15,7 +15,7 @@ task setup {
 }
 
 task createCredentialStore(type: CreateCredentialStore, dependsOn: setup) {
-  location = new File(project.projectDir, 'elly.store')
+  location = new File(project.buildDir, 'elly.store')
   password = 'elly'
   doFirst {
     if (location.exists()) {
@@ -27,7 +27,7 @@ task createCredentialStore(type: CreateCredentialStore, dependsOn: setup) {
 }
 
 task addAliasWithClearPassword(type: AddAlias, dependsOn: createCredentialStore) {
-  location = new File(project.projectDir, 'elly.store')
+  location = new File(project.buildDir, 'elly.store')
   password = 'elly'
   alias = 'elly.alias.clear'
   secret = 'elly.clear.secret'
@@ -38,7 +38,7 @@ task addAliasWithClearPassword(type: AddAlias, dependsOn: createCredentialStore)
 }
 
 task addAliasWithMaskedPassword(type: AddAlias, dependsOn: createCredentialStore) {
-  location = new File(project.projectDir, 'elly.store')
+  location = new File(project.buildDir, 'elly.store')
   password = 'elly'
   alias = 'elly.alias.masked'
   secret = 'elly.masked.secret'
@@ -48,7 +48,7 @@ task addAliasWithMaskedPassword(type: AddAlias, dependsOn: createCredentialStore
 }
 
 task retrieveClearPassword(type: RetrieveClearPassword, dependsOn: addAliasWithClearPassword) {
-  location = new File(project.projectDir, 'elly.store')
+  location = new File(project.buildDir, 'elly.store')
   password = 'elly'
   alias = 'elly.alias.clear'
   doFirst {

@@ -60,7 +60,7 @@ apply plugin: 'com.brambolt.gradle.testkit'
 
 dependencies {
   implementation "com.brambolt.wildfly:brambolt-rt-wildfly-elytron:${version}:${wildflyElytronToolVersion}"
-  implementation 'org.wildfly.security:wildfly-elytron-tool:1.4.0.Final'
+  implementation "org.wildfly.security:wildfly-elytron-tool:${wildflyElytronToolVersion}"
   testImplementation "com.brambolt.gradle:brambolt-gradle-testkit:${version}"
 }
 
