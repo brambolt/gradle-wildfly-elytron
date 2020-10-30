@@ -23,7 +23,15 @@ description = 'Wildfly Elytron convenience plugin.'
 group = 'com.brambolt.gradle'
 
 ext {
-  artifactClassifier = wildflyElytronToolVersion
+  // We need to publish a jar artifact without a classifier to the Gradle
+  // plugin portal. This jar will then be used when the plugin is included in
+  // a build. We deal with this by skipping the classifier; the plugin is
+  // still tied to a specific version of Elytron, through the dependency on
+  // the RT library, which is published with a classifier. In practice, this
+  // means that while we can publish any number of RT libraries tied to
+  // different versions of the Elytron tool, we're only publishing a Gradle
+  // plugin for one specific Elytron version.
+  // artifactClassifier = wildflyElytronToolVersion
   artifactId = 'brambolt-gradle-wildfly-elytron'
   developers = [[
     email: 'stefan.sigurdsson@brambolt.com',
@@ -51,7 +59,7 @@ apply plugin: 'com.brambolt.gradle.build.plugin'
 apply plugin: 'com.brambolt.gradle.testkit'
 
 dependencies {
-  implementation "com.brambolt.wildfly:brambolt-rt-wildfly-elytron:${version}:${artifactClassifier}"
+  implementation "com.brambolt.wildfly:brambolt-rt-wildfly-elytron:${version}:${wildflyElytronToolVersion}"
   implementation 'org.wildfly.security:wildfly-elytron-tool:1.4.0.Final'
   testImplementation "com.brambolt.gradle:brambolt-gradle-testkit:${version}"
 }
