@@ -59,8 +59,8 @@ apply plugin: 'com.brambolt.gradle.build.plugin'
 apply plugin: 'com.brambolt.gradle.testkit'
 
 dependencies {
-  // implementation "com.brambolt.wildfly:brambolt-rt-wildfly-elytron:${version}:${wildflyElytronToolVersion}"
   implementation "com.brambolt.wildfly:brambolt-rt-wildfly-elytron:${version}"
+  // Explicitly depend on the Elytron Tool because the RT library does not:
   implementation "org.wildfly.security:wildfly-elytron-tool:${wildflyElytronToolVersion}"
   testImplementation "com.brambolt.gradle:brambolt-gradle-testkit:${version}"
 }
